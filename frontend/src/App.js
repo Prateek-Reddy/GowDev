@@ -1,10 +1,9 @@
 // src/App.js
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
 const App = () => {
   const [prediction, setPrediction] = useState(null);
 
-  // Create refs for each input
   const typeRef = useRef("L");
   const airTempRef = useRef();
   const processTempRef = useRef();
@@ -23,11 +22,14 @@ const App = () => {
     };
 
     try {
-      const response = await fetch("https://predictive-maintenance-pipeline.onrender.com/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      const response = await fetch(
+        "https://predictive-maintenance-pipeline.onrender.com/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const result = await response.json();
       setPrediction(result.Prediction);
@@ -56,14 +58,24 @@ const App = () => {
         </div>
 
         {[
-          { label: "Air Temperature (K)", ref: airTempRef, defaultValue: 298.4 },
-          { label: "Process Temperature (K)", ref: processTempRef, defaultValue: 308.2 },
+          {
+            label: "Air Temperature (K)",
+            ref: airTempRef,
+            defaultValue: 298.4,
+          },
+          {
+            label: "Process Temperature (K)",
+            ref: processTempRef,
+            defaultValue: 308.2,
+          },
           { label: "Rotational Speed (rpm)", ref: speedRef, defaultValue: 200 },
           { label: "Torque (Nm)", ref: torqueRef, defaultValue: 40 },
-          { label: "Tool Wear (min)", ref: wearRef, defaultValue: 216 }
+          { label: "Tool Wear (min)", ref: wearRef, defaultValue: 216 },
         ].map(({ label, ref, defaultValue }) => (
           <div key={label} className="mb-4">
-            <label className="block mb-1 font-medium text-gray-700">{label}</label>
+            <label className="block mb-1 font-medium text-gray-700">
+              {label}
+            </label>
             <input
               type="number"
               ref={ref}
